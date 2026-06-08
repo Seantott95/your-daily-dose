@@ -99,6 +99,7 @@ function Home() {
               </a>
             </div>
           </div>
+          <div className="justify-self-end"><ThemeToggle /></div>
         </header>
 
         {/* Main grid */}
