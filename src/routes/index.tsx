@@ -2,6 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { SiteCard } from "@/components/SiteCard";
 import { VerifiedBadge } from "@/components/VerifiedBadge";
 import { Tag } from "@/components/Tag";
+import { ThemeToggle } from "@/components/ThemeToggle";
 import profileImg from "@/assets/profile.jpg";
 import project2 from "@/assets/project2.jpg";
 import project3 from "@/assets/project3.jpg";
@@ -67,7 +68,7 @@ function Home() {
     <main className="min-h-screen bg-background">
       <div className="mx-auto max-w-6xl px-4 py-10 sm:px-6 sm:py-14">
         {/* Header / profile */}
-        <header className="grid gap-6 sm:grid-cols-[160px_1fr] sm:items-start">
+        <header className="grid gap-6 sm:grid-cols-[160px_1fr_auto] sm:items-start">
           <img
             src={profileImg}
             alt="Profile portrait"
@@ -98,6 +99,7 @@ function Home() {
               </a>
             </div>
           </div>
+          <div className="justify-self-end"><ThemeToggle /></div>
         </header>
 
         {/* Main grid */}
