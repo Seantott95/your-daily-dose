@@ -21,6 +21,8 @@ export function ThemeToggle() {
   return (
     <button
       onClick={toggle}
+      onMouseEnter={() => window.dispatchEvent(new Event("theme-toggle-hover"))}
+      onMouseLeave={() => window.dispatchEvent(new Event("theme-toggle-leave"))}
       aria-label="Toggle theme"
       className="inline-flex h-9 w-9 items-center justify-center rounded-md border border-border bg-background text-foreground transition hover:bg-accent"
     >
