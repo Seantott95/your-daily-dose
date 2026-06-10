@@ -302,7 +302,7 @@ function Home() {
         </div>
 
         <footer className="mt-10 text-center text-xs text-muted-foreground">
-          © {new Date().getFullYear()} Your Name. All rights reserved.
+          © {new Date().getFullYear()} Sean Igual. All rights reserved.
         </footer>
       </div>
     </main>
