@@ -67,21 +67,38 @@ const certifications = [
 ];
 
 function Home() {
+  const [hoverState, setHoverState] = useState<"default" | "pic" | "theme">("default");
+  useEffect(() => {
+    const onEnter = () => setHoverState((s) => (s === "pic" ? s : "theme"));
+    const onLeave = () => setHoverState((s) => (s === "theme" ? "default" : s));
+    window.addEventListener("theme-toggle-hover", onEnter);
+    window.addEventListener("theme-toggle-leave", onLeave);
+    return () => {
+      window.removeEventListener("theme-toggle-hover", onEnter);
+      window.removeEventListener("theme-toggle-leave", onLeave);
+    };
+  }, []);
+
+  const currentImg =
+    hoverState === "pic" ? profileAlt : hoverState === "theme" ? profileAlt2 : profileImg;
+
   return (
     <main className="min-h-screen bg-background">
       <div className="mx-auto max-w-6xl px-4 py-10 sm:px-6 sm:py-14">
         {/* Header / profile */}
         <header className="grid gap-6 sm:grid-cols-[160px_1fr_auto] sm:items-start">
           <img
-            src={profileImg}
+            src={currentImg}
             alt="Profile portrait"
             width={160}
             height={160}
-            className="h-32 w-32 rounded-md object-cover sm:h-40 sm:w-40"
+            onMouseEnter={() => setHoverState("pic")}
+            onMouseLeave={() => setHoverState("default")}
+            className="h-32 w-32 rounded-md object-cover transition-all duration-300 sm:h-40 sm:w-40"
           />
           <div>
             <h1 className="flex items-center gap-2 text-2xl font-bold sm:text-3xl">
-              Your Name
+              Sean Igual
               <VerifiedBadge className="h-5 w-5" />
             </h1>
             <p className="mt-1 flex items-center gap-1 text-sm text-muted-foreground">
