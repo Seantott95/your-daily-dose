@@ -1,19 +1,22 @@
+import { useEffect, useState } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { SiteCard } from "@/components/SiteCard";
 import { VerifiedBadge } from "@/components/VerifiedBadge";
 import { Tag } from "@/components/Tag";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import profileImg from "@/assets/profile.jpg";
+import profileAlt from "@/assets/profile-alt.jpg";
+import profileAlt2 from "@/assets/profile-alt2.jpg";
 import project2 from "@/assets/project2.jpg";
 import project3 from "@/assets/project3.jpg";
 
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Your Name — Portfolio" },
-      { name: "description", content: "Personal portfolio showcasing experience, projects, certifications, and a way to get in touch." },
-      { property: "og:title", content: "Your Name — Portfolio" },
-      { property: "og:description", content: "Personal portfolio showcasing experience, projects, and certifications." },
+      { title: "Sean Igual — Portfolio" },
+      { name: "description", content: "Personal portfolio of Sean Igual showcasing experience, projects, certifications, and a way to get in touch." },
+      { property: "og:title", content: "Sean Igual — Portfolio" },
+      { property: "og:description", content: "Personal portfolio of Sean Igual showcasing experience, projects, and certifications." },
     ],
   }),
   component: Home,
@@ -64,21 +67,38 @@ const certifications = [
 ];
 
 function Home() {
+  const [hoverState, setHoverState] = useState<"default" | "pic" | "theme">("default");
+  useEffect(() => {
+    const onEnter = () => setHoverState((s) => (s === "pic" ? s : "theme"));
+    const onLeave = () => setHoverState((s) => (s === "theme" ? "default" : s));
+    window.addEventListener("theme-toggle-hover", onEnter);
+    window.addEventListener("theme-toggle-leave", onLeave);
+    return () => {
+      window.removeEventListener("theme-toggle-hover", onEnter);
+      window.removeEventListener("theme-toggle-leave", onLeave);
+    };
+  }, []);
+
+  const currentImg =
+    hoverState === "pic" ? profileAlt : hoverState === "theme" ? profileAlt2 : profileImg;
+
   return (
     <main className="min-h-screen bg-background">
       <div className="mx-auto max-w-6xl px-4 py-10 sm:px-6 sm:py-14">
         {/* Header / profile */}
         <header className="grid gap-6 sm:grid-cols-[160px_1fr_auto] sm:items-start">
           <img
-            src={profileImg}
+            src={currentImg}
             alt="Profile portrait"
             width={160}
             height={160}
-            className="h-32 w-32 rounded-md object-cover sm:h-40 sm:w-40"
+            onMouseEnter={() => setHoverState("pic")}
+            onMouseLeave={() => setHoverState("default")}
+            className="h-32 w-32 rounded-md object-cover transition-all duration-300 sm:h-40 sm:w-40"
           />
           <div>
             <h1 className="flex items-center gap-2 text-2xl font-bold sm:text-3xl">
-              Your Name
+              Sean Igual
               <VerifiedBadge className="h-5 w-5" />
             </h1>
             <p className="mt-1 flex items-center gap-1 text-sm text-muted-foreground">
@@ -282,7 +302,7 @@ function Home() {
         </div>
 
         <footer className="mt-10 text-center text-xs text-muted-foreground">
-          © {new Date().getFullYear()} Your Name. All rights reserved.
+          © {new Date().getFullYear()} Sean Igual. All rights reserved.
         </footer>
       </div>
     </main>
