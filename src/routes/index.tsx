@@ -102,10 +102,10 @@ function Home() {
               <VerifiedBadge className="h-5 w-5" />
             </h1>
             <p className="mt-1 flex items-center gap-1 text-sm text-muted-foreground">
-              <span aria-hidden>📍</span> City, Country
+              <span aria-hidden>📍</span> Paranaque City, Metro Manila, Philippines
             </p>
             <p className="mt-2 text-sm text-foreground/80">
-              Your headline — Role · Discipline · Focus area
+              Aspiring Full-Stack Developer | Student Freelancer | UI/UX & WEB DEVELOPER
             </p>
             <div className="mt-4 flex flex-wrap gap-2">
               <a className="inline-flex items-center gap-2 rounded-md bg-primary px-3.5 py-2 text-sm font-medium text-primary-foreground transition hover:opacity-90" href="#contact">
