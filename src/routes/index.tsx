@@ -1,19 +1,22 @@
+import { useEffect, useState } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { SiteCard } from "@/components/SiteCard";
 import { VerifiedBadge } from "@/components/VerifiedBadge";
 import { Tag } from "@/components/Tag";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import profileImg from "@/assets/profile.jpg";
+import profileAlt from "@/assets/profile-alt.jpg";
+import profileAlt2 from "@/assets/profile-alt2.jpg";
 import project2 from "@/assets/project2.jpg";
 import project3 from "@/assets/project3.jpg";
 
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Your Name — Portfolio" },
-      { name: "description", content: "Personal portfolio showcasing experience, projects, certifications, and a way to get in touch." },
-      { property: "og:title", content: "Your Name — Portfolio" },
-      { property: "og:description", content: "Personal portfolio showcasing experience, projects, and certifications." },
+      { title: "Sean Igual — Portfolio" },
+      { name: "description", content: "Personal portfolio of Sean Igual showcasing experience, projects, certifications, and a way to get in touch." },
+      { property: "og:title", content: "Sean Igual — Portfolio" },
+      { property: "og:description", content: "Personal portfolio of Sean Igual showcasing experience, projects, and certifications." },
     ],
   }),
   component: Home,
