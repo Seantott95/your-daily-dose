@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as TechStackRouteImport } from './routes/tech-stack'
 import { Route as CertificationsRouteImport } from './routes/certifications'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as ProjectIndexRouteImport } from './routes/project.index'
 import { Route as ProjectSlugRouteImport } from './routes/project.$slug'
 
 const TechStackRoute = TechStackRouteImport.update({
@@ -29,6 +30,11 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ProjectIndexRoute = ProjectIndexRouteImport.update({
+  id: '/project/',
+  path: '/project/',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ProjectSlugRoute = ProjectSlugRouteImport.update({
   id: '/project/$slug',
   path: '/project/$slug',
@@ -40,12 +46,14 @@ export interface FileRoutesByFullPath {
   '/certifications': typeof CertificationsRoute
   '/tech-stack': typeof TechStackRoute
   '/project/$slug': typeof ProjectSlugRoute
+  '/project/': typeof ProjectIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/certifications': typeof CertificationsRoute
   '/tech-stack': typeof TechStackRoute
   '/project/$slug': typeof ProjectSlugRoute
+  '/project': typeof ProjectIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -53,13 +61,25 @@ export interface FileRoutesById {
   '/certifications': typeof CertificationsRoute
   '/tech-stack': typeof TechStackRoute
   '/project/$slug': typeof ProjectSlugRoute
+  '/project/': typeof ProjectIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/certifications' | '/tech-stack' | '/project/$slug'
+  fullPaths:
+    | '/'
+    | '/certifications'
+    | '/tech-stack'
+    | '/project/$slug'
+    | '/project/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/certifications' | '/tech-stack' | '/project/$slug'
-  id: '__root__' | '/' | '/certifications' | '/tech-stack' | '/project/$slug'
+  to: '/' | '/certifications' | '/tech-stack' | '/project/$slug' | '/project'
+  id:
+    | '__root__'
+    | '/'
+    | '/certifications'
+    | '/tech-stack'
+    | '/project/$slug'
+    | '/project/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -67,6 +87,7 @@ export interface RootRouteChildren {
   CertificationsRoute: typeof CertificationsRoute
   TechStackRoute: typeof TechStackRoute
   ProjectSlugRoute: typeof ProjectSlugRoute
+  ProjectIndexRoute: typeof ProjectIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -92,6 +113,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/project/': {
+      id: '/project/'
+      path: '/project'
+      fullPath: '/project/'
+      preLoaderRoute: typeof ProjectIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/project/$slug': {
       id: '/project/$slug'
       path: '/project/$slug'
@@ -107,7 +135,18 @@ const rootRouteChildren: RootRouteChildren = {
   CertificationsRoute: CertificationsRoute,
   TechStackRoute: TechStackRoute,
   ProjectSlugRoute: ProjectSlugRoute,
+  ProjectIndexRoute: ProjectIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}

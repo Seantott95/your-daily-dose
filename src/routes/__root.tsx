@@ -6,11 +6,13 @@ import {
   useRouter,
   HeadContent,
   Scripts,
+  ScrollRestoration,
 } from "@tanstack/react-router";
 import { useEffect, type ReactNode } from "react";
 
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
+import myTabIcon from "@../src/assets/manager.png"
 
 function NotFoundComponent() {
   return (
@@ -77,19 +79,26 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Lovable App" },
-      { name: "description", content: "Lovable Generated Project" },
-      { name: "author", content: "Lovable" },
-      { property: "og:title", content: "Lovable App" },
-      { property: "og:description", content: "Lovable Generated Project" },
+      
+      // I updated these titles for you so your site looks professional when shared!
+      { title: "Sean Igual — Portfolio" },
+      { name: "description", content: "Personal portfolio of Sean Igual showcasing web development projects." },
+      { name: "author", content: "Sean Igual" },
+      { property: "og:title", content: "Sean Igual — Portfolio" },
+      { property: "og:description", content: "Personal portfolio of Sean Igual" },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
-      { name: "twitter:site", content: "@Lovable" },
     ],
     links: [
       {
         rel: "stylesheet",
         href: appCss,
+      },
+      // 👇 UPDATED FOR PNG 👇
+      {
+        rel: "icon",
+        type: "image/png",              // Changed from image/x-icon to image/png
+        href: "myTabIcon",      // Make sure this exactly matches the file in your public folder!
       },
     ],
   }),
@@ -118,7 +127,8 @@ function RootComponent() {
 
   return (
     <QueryClientProvider client={queryClient}>
-      {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
+      {/* 👇 Ensures scrolling restores perfectly when clicking 'Go Back' */}
+      <ScrollRestoration />
       <Outlet />
     </QueryClientProvider>
   );
