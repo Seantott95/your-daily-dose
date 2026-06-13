@@ -1,12 +1,14 @@
 import { defineConfig } from 'vite'
 import viteReact from '@vitejs/plugin-react'
 import { tanstackStart } from '@tanstack/react-start/plugin/vite'
-import { nitro } from 'nitro/vite' // 1. Add this import
+import { nitro } from 'nitro/vite'
 
 export default defineConfig({
   plugins: [
     tanstackStart(), 
-    nitro(), // 2. Add the nitro plugin here
+    nitro({
+      preset: "vercel" // 👈 Add this line inside nitro()
+    }), 
     viteReact()
   ],
 })
