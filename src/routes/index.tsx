@@ -228,14 +228,15 @@ function Home() {
         {/* Header / profile */}
         <header className="grid gap-6 sm:grid-cols-[160px_1fr_auto] sm:items-start animate-in fade-in slide-in-from-bottom-4 duration-500">
           <img
-            src={currentImg}
-            alt="Profile portrait"
-            width={160}
-            height={160}
-            onMouseEnter={() => setIsProfileHovered(true)}
-            onMouseLeave={() => setIsProfileHovered(false)}
-            className="h-32 w-32 rounded-md object-cover transition-all duration-300 sm:h-40 sm:w-40"
-          />
+  src={currentImg}
+  alt="Profile portrait"
+  width={160}
+  height={160}
+  onMouseEnter={() => setIsProfileHovered(true)}
+  onMouseLeave={() => setIsProfileHovered(false)}
+  onClick={() => setIsProfileHovered((prev) => !prev)}
+  className="h-32 w-32 rounded-md object-cover transition-all duration-300 sm:h-40 sm:w-40 cursor-pointer active:scale-95"
+/>
           <div>
             <h1 className="flex items-center gap-2 text-2xl font-bold sm:text-3xl">
               Sean Igual
