@@ -1,18 +1,17 @@
-import { defineConfig } from 'vite'
-import { tanstackStart } from '@tanstack/react-start/plugin/vite'
-import { nitro } from 'nitro/vite'
-import react from '@vitejs/plugin-react'
-import { fileURLToPath, URL } from 'node:url'
+import { defineConfig } from "@lovable.dev/vite-tanstack-config";
+import { nitro } from "nitro/vite";
+import { fileURLToPath, URL } from "node:url"; // 1. Add this path helper
 
 export default defineConfig({
-  plugins: [
-    tanstackStart(),
-    nitro(),
-    react(),
-  ],
-  resolve: {
-    alias: {
-      '@': fileURLToPath(new URL('./src', import.meta.url)),
+  vite: {
+    plugins: [
+      nitro({ preset: "vercel" }),
+    ],
+    // 2. Add the resolve block right here inside the vite object
+    resolve: {
+      alias: {
+        "@": fileURLToPath(new URL("./src", import.meta.url)),
+      },
     },
   },
-})
+});
