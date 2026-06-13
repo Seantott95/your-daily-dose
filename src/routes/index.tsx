@@ -260,7 +260,7 @@ function Home() {
               {/* Changed href to your file, added target="_blank" so it opens in a new tab, and changed the emoji! */}
 <a 
   className="inline-flex items-center gap-2 rounded-md border border-border bg-background px-3.5 py-2 text-sm font-medium text-foreground transition-all duration-300 hover:bg-accent hover:-translate-y-1 hover:shadow-sm" 
-  href="src/assets/resume.jpg" 
+  href="/resume.jpg" 
   target="_blank" 
   rel="noopener noreferrer"
 >
