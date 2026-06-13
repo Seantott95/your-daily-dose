@@ -1,14 +1,18 @@
 import { defineConfig } from 'vite'
-import viteReact from '@vitejs/plugin-react'
 import { tanstackStart } from '@tanstack/react-start/plugin/vite'
 import { nitro } from 'nitro/vite'
+import react from '@vitejs/plugin-react'
+import { fileURLToPath, URL } from 'node:url'
 
 export default defineConfig({
   plugins: [
-    tanstackStart(), 
-    nitro({
-      preset: "vercel" // 👈 Add this line inside nitro()
-    }), 
-    viteReact()
+    tanstackStart(),
+    nitro(),
+    react(),
   ],
+  resolve: {
+    alias: {
+      '@': fileURLToPath(new URL('./src', import.meta.url)),
+    },
+  },
 })
